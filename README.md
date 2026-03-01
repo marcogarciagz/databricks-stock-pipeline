@@ -33,7 +33,7 @@ Components
 | DAB                  | CI/CD deployment      |
 
 ## 📂 Repository Structure
-```text
+```
 databricks-stock-pipeline/
 │
 ├── notebooks/                  # Medallion notebooks
@@ -59,7 +59,8 @@ databricks-stock-pipeline/
 ├── config/
 │   └── example.env             # Placeholder config (no secrets)
 │
-└── README.md```
+└── README.md
+```
 
 ## 🧱 Data Architecture
 ### 🥉 Bronze Layer – Raw Ingestion
@@ -104,7 +105,7 @@ Gold is ML-ready and BI-ready.
 Focus: integration into data platform, not trading alpha.
 
 ## 📂 Lakehouse Folder Hierarchy
-```text
+```
 abfss://stock-demo@stockdatalakemgg.dfs.core.windows.net/
 └── stock-demo/
     ├── bronze/
@@ -147,6 +148,7 @@ abfss://stock-demo@stockdatalakemgg.dfs.core.windows.net/
             ├── offsets/
             ├── commits/
             └── sources/
+```
 
 ## 🛡 Governance & Data Quality
 ### Unity Catalog
@@ -218,15 +220,20 @@ Supports:
 
 ### Run Locally
 1️⃣ **Set environment variables**
-<code>export DATABRICKS_HOST="https://adb-xxxxx.azuredatabricks.net"
-export DATABRICKS_TOKEN="your_pat_here"``<!code>
+```
+export DATABRICKS_HOST="https://adb-xxxxx.azuredatabricks.net"
+export DATABRICKS_TOKEN="your_pat_here"
+```
 
 2️⃣ **Deploy**
-``./scripts/deploy.sh``
+```
+./scripts/deploy.sh
+```
 
 3️⃣ **Run Workflow**
+```
 ./scripts/run.sh
-
+```
 ## 🧠 Design Principles
 
 * Separation of concerns (Bronze/Silver/Gold)
