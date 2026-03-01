@@ -59,7 +59,7 @@ databricks-stock-pipeline/
 ├── config/
 │   └── example.env             # Placeholder config (no secrets)
 │
-└── README.md
+└── README.md```
 
 ## 🧱 Data Architecture
 ### 🥉 Bronze Layer – Raw Ingestion
