@@ -33,7 +33,7 @@ Components
 | DAB                  | CI/CD deployment      |
 
 ## 📂 Repository Structure
-
+```text
 databricks-stock-pipeline/
 │
 ├── notebooks/                  # Medallion notebooks
@@ -68,9 +68,9 @@ databricks-stock-pipeline/
 * Stored as Delta
 * Partitioned by ingestion_date
 * Metadata added:
-    - ingestion_ts
-    - ingestion_date
-    - source_file
+    - ``ingestion_ts``
+    - ``ingestion_date``
+    - ``source_file``
 
 Bronze preserves raw data with minimal transformation.
 
@@ -104,7 +104,7 @@ Gold is ML-ready and BI-ready.
 Focus: integration into data platform, not trading alpha.
 
 ## 📂 Lakehouse Folder Hierarchy
-
+```text
 abfss://stock-demo@stockdatalakemgg.dfs.core.windows.net/
 └── stock-demo/
     ├── bronze/
@@ -169,6 +169,7 @@ Dedicated DQ notebook:
 Example:
 
 ``CHECK (close > 0)``
+
 ``CHECK (high >= low)``
 
 Enforces data correctness at storage level.
@@ -217,10 +218,12 @@ Supports:
 
 ### Run Locally
 1️⃣ **Set environment variables**
-``export DATABRICKS_HOST="https://adb-xxxxx.azuredatabricks.net"``
-``export DATABRICKS_TOKEN="your_pat_here"``
+<code>export DATABRICKS_HOST="https://adb-xxxxx.azuredatabricks.net"
+export DATABRICKS_TOKEN="your_pat_here"``<!code>
+
 2️⃣ **Deploy**
 ``./scripts/deploy.sh``
+
 3️⃣ **Run Workflow**
 ./scripts/run.sh
 
@@ -237,10 +240,14 @@ Supports:
 ## 📈 Potential Improvements
 
 If I were to evolve this project from a showcase into something production-grade, the next step would be to formalize the ML lifecycle and environment management.
+
 First, I’d integrate **MLflow Model Registry to track experiments, persist model artifacts, and manage versioned models with clear stage transitions** (e.g., Staging → Production). That would naturally connect to production-ready model serving, either via Databricks Model Serving or an external API layer, so predictions can be consumed in real time rather than only through batch tables.
+
 In parallel, I’d introduce a **strong dev/prod separation and multi-environment promotion**. Today, everything runs in one workspace context; in a real organization I’d have separate environments with different catalogs/schemas, isolated storage locations, and different credentials. Deployment would then promote the same Asset Bundle across environments using target-specific configuration (dev/staging/prod), with approvals and quality gates in CI/CD.
+
 From a data engineering perspective, I’d upgrade ingestion **from “triggered batch” to continuous streaming** where appropriate, especially **if the business needs near-real-time analytics**. That also connects to alerting and monitoring: adding pipeline SLAs, data freshness checks, job failure alerts, and DQ metric thresholds that trigger notifications (Teams/Email/PagerDuty). In production, observability is as important as correctness.
 Another key improvement would be **CDC ingestion**. For market data this might not be the main driver, but **for enterprise sources** (ERP, trades, orders, risk systems), incremental changes are essential. I’d implement CDC patterns using change feeds (where available), Auto Loader incremental file ingestion, or event-driven ingestion—ensuring consistent upserts into Silver and Gold using Delta MERGE.
+
 Overall, the theme is: the current project already demonstrates the architecture and engineering patterns, and these improvements would make it fully aligned with production requirements: governed lifecycle, controlled promotions, real-time capability, observability, incremental change handling, and reliable serving.
 
 ## 🛠 Technologies Used
